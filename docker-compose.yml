@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  docker-ocs-api:
+     build: .
+     image: testing-ci-image:latest
+     container_name: testing-ci-cotainer
+     environment:
+       - CONTAINER_ENV=local
+     ports:
+       - "8181:8181"
+     networks:
+       - private
+     tty: true
+
+networks:
+  bridge:
+    external:
+      name: bridge
+  private:
+    external: false
