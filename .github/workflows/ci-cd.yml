@@ -25,12 +25,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Updates the repo
+      - name: Pulling the updated version to overwrite the current jar file
+        run: git pull
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # Tell docker to down the container
+      - name: Run a docker-compose script 
+        run: docker-compose down || true
+
+      # Remove the docker image 
+      - name: Run a docker script
+        run: docker image rm testing-ci-image:latest || true
+
+      # Replace and run the new version of docker API
+      - name: Run a docker-compose script
+        run: docker-compose up -d
