@@ -1,15 +1,18 @@
+services:
+  docker:
+    image: docker:26.1.1-dind
+    privileged: true
+    command: ["dockerd-entrypoint.sh"]
+
 steps:
   run-compose:
-    image: docker:26.1.1-dind
+    image: docker:26.1.1
     when:
       event:
         - push
         - manual
-    privileged: true
     environment:
-      DOCKER_HOST: unix:///var/run/docker.sock
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      DOCKER_HOST: tcp://docker:2376
     commands:
       - apk add --no-cache docker-compose
       - docker-compose up -d
