@@ -1,0 +1,7 @@
+pipeline:
+  run-compose:
+    image: docker:26.1.1-dind
+    privileged: true
+    commands:
+      - apk add --no-cache docker-compose
+      - docker-compose up -d
