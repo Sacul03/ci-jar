@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  docker-ocs-api:
+  docker-cicd-test:
      build: .
      image: testing-ci-image:latest
      container_name: testing-ci-cotainer

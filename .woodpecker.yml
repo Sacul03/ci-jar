@@ -5,3 +5,4 @@ pipeline:
     commands:
       - apk add --no-cache docker-compose
       - docker-compose up -d
+      - curl http://localhost:8181/message/get
