@@ -1,7 +1,14 @@
 steps:
   run-compose:
     image: docker:26.1.1-dind
-    privileged: true
+    when:
+      event:
+        - push
+        - manual
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker:sock/var/run/docker.sock
     commands:
       - apk add --no-cache docker-compose
       - docker-compose up -d
