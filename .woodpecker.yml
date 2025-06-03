@@ -1,18 +1,17 @@
-services:
-  docker:
-    image: docker:26.1.1-dind
-    privileged: true
-
 steps:
   run-compose:
-    image: docker:26.1.1
+    image: docker:26.1.1-dind
+    privileged: true
     when:
       event:
         - push
         - manual
     environment:
-      DOCKER_HOST: tcp://docker:2376
+      DOCKER_HOST: unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     commands:
-      - apk add --no-cache docker-compose
+      - apk add --no-cache docker-compose curl
       - docker-compose up -d
+      - sleep 10
       - curl http://localhost:8181/message/get
