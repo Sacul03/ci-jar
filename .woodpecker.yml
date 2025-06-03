@@ -2,7 +2,7 @@ services:
   docker:
     image: docker:26.1.1-dind
     privileged: true
-    command: ["dockerd-entrypoint.sh"]
+    commands: ["dockerd-entrypoint.sh"]
 
 steps:
   run-compose:
